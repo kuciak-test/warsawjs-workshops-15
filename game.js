@@ -2,12 +2,20 @@
 
 document.addEventListener('DOMContentLoaded', function(){
 
+    var playerClasses = {
+        'playerA' : 'red',
+        'playerB' : 'blue'
+    };
+
+    var currentPlayer;
+
    initGame();
 
    function initGame() {
 
        var fields = document.querySelectorAll('.board > div');
 
+       currentPlayer = 'playerA';
        //fields.forEach(field => field.addEventListener('click', fieldClickHandler));
        fields.forEach(field => field.addEventListener('click', fieldClickHandler));
    }
@@ -15,7 +23,11 @@ document.addEventListener('DOMContentLoaded', function(){
    function fieldClickHandler(){
 
        console.log("Hello "+this.id, this);
-       this.classList.add('red');
+
+       var playerClass = playerClasses[currentPlayer];
+       this.classList.add(playerClass);
+
+       currentPlayer = currentPlayer === 'playerA' ? 'playerB' : 'playerA';
    }
 
 

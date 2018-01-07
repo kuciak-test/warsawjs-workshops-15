@@ -12,6 +12,13 @@ document.addEventListener('DOMContentLoaded', function(){
 
    initGame();
 
+   function displayRoundInformation() {
+       var round = document.getElementById('round-info');
+
+       round.className = playerClasses[currentPlayer];
+       round.innerHTML = `Round for ${currentPlayer}`;
+   }
+
    function initGame() {
 
        var fields = document.querySelectorAll('.board > div');
@@ -20,6 +27,8 @@ document.addEventListener('DOMContentLoaded', function(){
        emptyFields = 9;
        fields.forEach(field => field.addEventListener('click', fieldClickHandler));
        fields.forEach(field => field.removeAttribute('class'));
+
+       displayRoundInformation();
    }
 
    function fieldClickHandler(){
@@ -32,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function(){
        emptyFields--;
        currentPlayer = currentPlayer === 'playerA' ? 'playerB' : 'playerA';
 
+       displayRoundInformation();
        this.removeEventListener('click', fieldClickHandler);
 
        checkWinner();

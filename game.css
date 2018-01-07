@@ -1,5 +1,11 @@
 * {
     box-sizing: border-box;
+    background-color: #dedede;
+}
+
+h1,
+#round-info {
+    text-align: center;
 }
 
 .board {

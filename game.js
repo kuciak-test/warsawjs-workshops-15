@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
    function fieldClickHandler(){
 
-       console.log("Hello", this);
+       console.log("Hello "+this.id, this);
+       this.classList.add('red');
    }
 
 

@@ -13,6 +13,11 @@ document.addEventListener('DOMContentLoaded', function(){
         'playerB': 0
     }
 
+    var names = {
+        'playerA': 'Player named A',
+        'playerB': 'Player named B'
+    }
+
     var currentPlayer;
     var emptyFields;
 
@@ -27,10 +32,27 @@ document.addEventListener('DOMContentLoaded', function(){
        displayPlayerScore('playerB');
    });
 
+   for (let player in names) {
+       let renameButton = document.getElementById(`${player}-rename`);
+       renameButton.innerText = `Rename ${names[player]}`;
+       renameButton.addEventListener('click', function () {
+           // zmieniamy nazwę gracza, ale tylko jak użytkownik podał nową nazwę
+           tempName = prompt( `Rename ${player} to:`);
+           if (tempName != null) {
+               names[player] = tempName;
+           }
+           renameButton.innerText = `Rename ${names[player]}`;
+           displayRoundInformation();
+           displayPlayerScore('playerA');
+           displayPlayerScore('playerB');
+       });
+
+   }
+
    function displayPlayerScore(player) {
        var score = document.getElementById(`${player}-score`);
 
-       score.innerHTML = `${player} score: ${scores[player]}`;
+       score.innerHTML = `${names[player]} score: ${scores[player]}`;
    }
 
    function updatePlayerScore(player) {
@@ -41,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function(){
        var round = document.getElementById('round-info');
 
        round.className = playerClasses[currentPlayer];
-       round.innerHTML = `Round for ${currentPlayer}`;
+       round.innerHTML = `Round for ${names[currentPlayer]}`;
    }
 
    function initGame() {
@@ -77,11 +99,11 @@ document.addEventListener('DOMContentLoaded', function(){
    function gameWin(wincolor) {
        setTimeout(() => {
            if (wincolor === 'red') {
-               alert('Red Wins!');
+               alert(`${names['playerA']} Wins!`);
                updatePlayerScore('playerA');
            }
            else {
-               alert('Blue Wins!');
+               alert(`${names['playerB']} Wins!`);
                updatePlayerScore('playerB');
            }
            initGame();

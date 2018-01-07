@@ -2,15 +2,40 @@
 
 document.addEventListener('DOMContentLoaded', function(){
 
+    var resetButton = document.getElementById('reset-score');
     var playerClasses = {
         'playerA' : 'red',
         'playerB' : 'blue'
     };
 
+    var scores = {
+        'playerA': 0,
+        'playerB': 0
+    }
+
     var currentPlayer;
     var emptyFields;
 
    initGame();
+
+   resetButton.addEventListener('click', function() {
+
+       scores['playerA'] = 0;
+       scores['playerB'] = 0;
+
+       displayPlayerScore('playerA');
+       displayPlayerScore('playerB');
+   });
+
+   function displayPlayerScore(player) {
+       var score = document.getElementById(`${player}-score`);
+
+       score.innerHTML = `${player} score: ${scores[player]}`;
+   }
+
+   function updatePlayerScore(player) {
+       scores[player]++;
+   }
 
    function displayRoundInformation() {
        var round = document.getElementById('round-info');
@@ -29,11 +54,13 @@ document.addEventListener('DOMContentLoaded', function(){
        fields.forEach(field => field.removeAttribute('class'));
 
        displayRoundInformation();
+       displayPlayerScore('playerA');
+       displayPlayerScore('playerB');
    }
 
    function fieldClickHandler(){
 
-       console.log("Hello "+this.id, this);
+       //console.log("Hello "+this.id, this);
 
        var playerClass = playerClasses[currentPlayer];
        this.classList.add(playerClass);
@@ -47,9 +74,16 @@ document.addEventListener('DOMContentLoaded', function(){
        checkWinner();
    }
 
-   function endOfGame(message) {
+   function gameWin(wincolor) {
        setTimeout(() => {
-           alert(message);
+           if (wincolor === 'red') {
+               alert('Red Wins!');
+               updatePlayerScore('playerA');
+           }
+           else {
+               alert('Blue Wins!');
+               updatePlayerScore('playerB');
+           }
            initGame();
        }, 100);
    }
@@ -80,7 +114,8 @@ document.addEventListener('DOMContentLoaded', function(){
                macierz[idx][0] === macierz[idx][2] &&
                macierz[idx][0] != '') {
 
-               endOfGame(macierz[idx][0] + ' wins!');
+               gameWin(macierz[idx][0]);
+               return;
            }
        }
 
@@ -90,7 +125,8 @@ document.addEventListener('DOMContentLoaded', function(){
                macierz[0][idx] === macierz[2][idx] &&
                macierz[0][idx] != '') {
 
-               endOfGame(macierz[0][idx] + ' wins!');
+               gameWin(macierz[0][idx]);
+               return;
            }
        }
 
@@ -99,7 +135,8 @@ document.addEventListener('DOMContentLoaded', function(){
            macierz[0][0] === macierz[2][2] &&
            macierz[0][0] != '') {
 
-           endOfGame(macierz[0][0] + ' wins!');
+           gameWin(macierz[0][0]);
+           return;
        }
 
        // przekątna druga
@@ -107,11 +144,16 @@ document.addEventListener('DOMContentLoaded', function(){
            macierz[0][2] === macierz[2][0] &&
            macierz[0][2] != '') {
 
-           endOfGame(macierz[0][2] + ' wins!');
+           gameWin(macierz[0][2]);
+           return;
        }
 
        if (emptyFields === 0) {
-           endOfGame('Tie');
+           setTimeout(() => {
+               alert('Tie');
+               initGame();
+           }, 100);
+           return;
        }
 
    }

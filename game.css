@@ -8,6 +8,10 @@ h1,
     text-align: center;
 }
 
+#round-info {
+    color: #d6d6d6;
+}
+
 .board {
     height: 300px;
     width: 300px;
@@ -28,4 +32,11 @@ h1,
 
 .blue {
     background-color: cornflowerblue;
+}
+
+#reset-score {
+    background-color: #FFF;
+    padding: 7px 10px;
+    border: 1px solid #CCC;
+    text-transform: uppercase;
 }

@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
        currentPlayer = 'playerA';
        emptyFields = 9;
-       //fields.forEach(field => field.addEventListener('click', fieldClickHandler));
        fields.forEach(field => field.addEventListener('click', fieldClickHandler));
+       fields.forEach(field => field.removeAttribute('class'));
    }
 
    function fieldClickHandler(){
@@ -34,10 +34,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
        this.removeEventListener('click', fieldClickHandler);
 
-       /*
-       if (emptyFields === 0) {
-           alert('End of the Game!');
-       }*/
        checkWinner();
    }
 
@@ -68,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function(){
                macierz[idx][0] != '') {
 
                alert(macierz[idx][0] + ' wins!');
-               return;
+               initGame();
            }
        }
 
@@ -79,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function(){
                macierz[0][idx] != '') {
 
                alert(macierz[0][idx] + ' wins!');
-               return;
+               initGame();
            }
        }
 
@@ -89,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function(){
            macierz[0][0] != '') {
 
            alert(macierz[0][0] + ' wins!');
+           initGame();
        }
 
        // przekątna druga
@@ -97,11 +94,12 @@ document.addEventListener('DOMContentLoaded', function(){
            macierz[0][2] != '') {
 
            alert(macierz[0][2] + ' wins!');
+           initGame();
        }
 
        if (emptyFields === 0) {
            alert('Tie');
-           return;
+           initGame();
        }
 
    }

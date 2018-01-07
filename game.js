@@ -37,6 +37,13 @@ document.addEventListener('DOMContentLoaded', function(){
        checkWinner();
    }
 
+   function endOfGame(message) {
+       setTimeout(() => {
+           alert(message);
+           initGame();
+       }, 100);
+   }
+
    function checkWinner() {
        var fields = document.querySelectorAll('.board > div');
 
@@ -63,8 +70,7 @@ document.addEventListener('DOMContentLoaded', function(){
                macierz[idx][0] === macierz[idx][2] &&
                macierz[idx][0] != '') {
 
-               alert(macierz[idx][0] + ' wins!');
-               initGame();
+               endOfGame(macierz[idx][0] + ' wins!');
            }
        }
 
@@ -74,8 +80,7 @@ document.addEventListener('DOMContentLoaded', function(){
                macierz[0][idx] === macierz[2][idx] &&
                macierz[0][idx] != '') {
 
-               alert(macierz[0][idx] + ' wins!');
-               initGame();
+               endOfGame(macierz[0][idx] + ' wins!');
            }
        }
 
@@ -84,8 +89,7 @@ document.addEventListener('DOMContentLoaded', function(){
            macierz[0][0] === macierz[2][2] &&
            macierz[0][0] != '') {
 
-           alert(macierz[0][0] + ' wins!');
-           initGame();
+           endOfGame(macierz[0][0] + ' wins!');
        }
 
        // przekątna druga
@@ -93,13 +97,11 @@ document.addEventListener('DOMContentLoaded', function(){
            macierz[0][2] === macierz[2][0] &&
            macierz[0][2] != '') {
 
-           alert(macierz[0][2] + ' wins!');
-           initGame();
+           endOfGame(macierz[0][2] + ' wins!');
        }
 
        if (emptyFields === 0) {
-           alert('Tie');
-           initGame();
+           endOfGame('Tie');
        }
 
    }
